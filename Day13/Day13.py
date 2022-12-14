@@ -4,6 +4,7 @@ from more_itertools import flatten
 with open("input.txt") as f:
     pairs = [[eval(l) for l in x.split()] for x in f.read().split("\n\n")]
 
+
 def is_correct_order(l, r):
     if type(l) == int and type(r) == int:
         return l - r
@@ -15,11 +16,12 @@ def is_correct_order(l, r):
         return r1 if r1 != 0 else is_correct_order(l[1:], r[1:])
     return is_correct_order([l], r) if type(l) == int else is_correct_order(l, [r])
 
+
 print(sum(i for i, (l, r) in enumerate(pairs, start=1) if is_correct_order(l, r) < 0))
 
 pairs = list(flatten(pairs))
-pairs.extend([[[2]],[[6]]])
+pairs.extend([[[2]], [[6]]])
 
 pairs_sorted = sorted(pairs, key=cmp_to_key(is_correct_order))
-i1, i2 = pairs_sorted.index([[2]])+1, pairs_sorted.index([[6]])+1
-print(i1*i2)
+i1, i2 = pairs_sorted.index([[2]]) + 1, pairs_sorted.index([[6]]) + 1
+print(i1 * i2)
